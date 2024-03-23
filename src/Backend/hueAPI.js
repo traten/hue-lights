@@ -4,19 +4,19 @@ import fetch from "node-fetch";
 import * as HueBridge from './HueBridge.js';
 const localHueBridge = 'https://' + HueBridge.IPAddress + '/clip/v2/';
 
-const GetHue = async (resource) => {
-  const response = await fetch(localHueBridge + 'resource/' + resource, {
+const GetDeviceList = async () => {
+  const response = await fetch(localHueBridge + 'resource/device', {
     method: 'GET',
     headers: {
       'hue-application-key': HueBridge.UserId,
     }
   });
-  const myJson = await response.json(); //extract JSON from the http response
-  console.log(myJson)
+
+  const deviceList = await response.json(); //extract JSON from the http response
+  return deviceList;
 }
 
-const TurnLight = async(lightRid, state) => {
-  console.log(localHueBridge + 'resource/' + 'light/' + lightRid)
+const TurnLightState = async(lightRid, state) => {
   const response = await fetch(localHueBridge + 'resource/' + 'light/' + lightRid, {
     method: 'PUT',
     headers:{
@@ -24,11 +24,11 @@ const TurnLight = async(lightRid, state) => {
     },
     body: JSON.stringify({"on": { "on": state}})
   })
-  const myJson = await response.json(); //extract JSON from the http response
-  console.log(myJson)
+
+  return await response.json();
 }
 
 export default {
-  GetHue,
-  TurnLight
+  GetDeviceList,
+  TurnLightState
 }
