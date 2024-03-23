@@ -1,27 +1,34 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 import fetch from "node-fetch";
+import * as HueBridge from './HueBridge.js';
+const localHueBridge = 'https://' + HueBridge.IPAddress + '/clip/v2/';
 
-import HueBridge from './HueBridge.json';
-const localHueBridge = 'http://' + HueBridge.IPAddress + '/api/' + HueBridge.UserId + '/'
-
-const getHue = async (request) => {
-  const response = await fetch(localHueBridge + request + '/', {
-    method: 'GET'
+const GetHue = async (resource) => {
+  const response = await fetch(localHueBridge + 'resource/' + resource, {
+    method: 'GET',
+    headers: {
+      'hue-application-key': HueBridge.UserId,
+    }
   });
   const myJson = await response.json(); //extract JSON from the http response
   console.log(myJson)
 }
 
-const setHueLight = async(lightNumber, state) => {
-  const response = await fetch(localHueBridge + 'lights/' + lightNumber + '/state', {
+const TurnLight = async(lightRid, state) => {
+  console.log(localHueBridge + 'resource/' + 'light/' + lightRid)
+  const response = await fetch(localHueBridge + 'resource/' + 'light/' + lightRid, {
     method: 'PUT',
-    body: JSON.stringify({"on": state})
+    headers:{
+      "hue-application-key": HueBridge.UserId,
+    },
+    body: JSON.stringify({"on": { "on": state}})
   })
   const myJson = await response.json(); //extract JSON from the http response
   console.log(myJson)
 }
 
-
 export default {
-  getHue,
-  setHueLight
+  GetHue,
+  TurnLight
 }

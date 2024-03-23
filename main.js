@@ -1,11 +1,13 @@
 import hue from './hueAPI.js'
-import constants from './constants.json'
+import * as constants from './constants.js'
+const deskLeft = '6019c7bc-e447-4c66-ba06-76be3d494535';
 
 //get hue lights info
-hue.getHue('lights')
+hue.GetHue('device')
 
-//set hue light one on
-hue.setHueLight(1, constants.ON)
 
 //set hue light one off
-hue.setHueLight(1, constants.OFF)
+hue.TurnLight(deskLeft, constants.ON)
+
+//set hue light one on
+// hue.TurnLight(deskLeft, constants.ON)
