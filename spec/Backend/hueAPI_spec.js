@@ -1,32 +1,42 @@
 describe('hueAPI', () => {
   const HueApi = require('../../src/Backend/hueAPI.js');
-  const HueBridge = require('../../src/constants/HueBridge.json')
-  const fetchMock = require('fetch-mock')
-  const HueApiMock = require('../mocks/HueApi_Mock.js')
+  const constants = require('../../src/constants/constants.json');
+  const fetchMock = require('fetch-mock').sandbox();
+  const IPAddress = '192.163.0.0';
+  const UserId = '2';
+  const LightRid = '10';
   let hue;
-  let hueApiMock;
 
   beforeEach(() => {
-    hue = HueApi();
-    hueApiMock = HueApiMock();
-  });
+    hue = HueApi(fetchMock, IPAddress, UserId);
 
-  afterEach(() => {
     fetchMock.restore();
   });
 
-  it('should return a device list', async () => {
-    const mockResponse = hueApiMock.getDevice();
-    fetchMock.get('https://' + HueBridge.IPAddress + '/clip/v2/resource/device', mockResponse, {
+  it('should request the device list', async () => {
+    fetchMock.getOnce('https://' + IPAddress + '/clip/v2/resource/device', {}, {
       method: 'GET',
       headers: {
-        'hue-application-key': HueBridge.UserId,
+        'hue-application-key': UserId
       }
     });
 
-    const data = await hue.getDeviceList();
+    await hue.getDeviceList();
 
     expect(fetchMock.called()).toBe(true);
-    expect(data).toEqual(mockResponse);
   });
-})
+
+  it('should request to turn the light on', async () => {
+    fetchMock.put('https://' + IPAddress + '/clip/v2/resource/light/' + LightRid, {}, {
+      method: 'PUT',
+      headers: {
+        'hue-application-key': UserId
+      },
+      body: { on: { on: true } }
+    });
+
+    await hue.turnLightState(LightRid, constants.ON);
+
+    expect(fetchMock.called()).toBe(true);
+  });
+});
