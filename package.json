@@ -1,0 +1,30 @@
+{
+  "name": "hueapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine",
+    "coverage": "nyc npm run test",
+    "lint": "eslint 'src/**/*.js' 'spec/**/*.js'",
+    "hue": "node src/Backend/index.js"
+  },
+  "author": "Trevor Aten",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "fetch-mock": "^9.11.0",
+    "latest-version": "^9.0.0",
+    "node-fetch": "^2.7.0",
+    "nyc": "^15.1.0",
+    "proxyquire": "^2.1.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "jasmine": "^5.1.0"
+  }
+}
