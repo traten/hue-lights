@@ -7,7 +7,7 @@
     "test": "jasmine",
     "coverage": "nyc npm run test",
     "lint": "eslint 'src/**/*.js' 'spec/**/*.js'",
-    "hue": "node src/Backend/index.js"
+    "hue": "node src/index.js"
   },
   "author": "Trevor Aten",
   "license": "ISC",

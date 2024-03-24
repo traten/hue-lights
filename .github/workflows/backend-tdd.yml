@@ -1,4 +1,4 @@
-name: lint
+name: backend-tdd
 
 on:
   push:
@@ -22,5 +22,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run lint
+    - run: npm ci --prefix ./backend
+    - run: npm run coverage --prefix ./backend
