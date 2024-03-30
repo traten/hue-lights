@@ -1,5 +1,5 @@
 const HueApi = require('./hueAPI.js');
-const constants = require('../constants/constants.json');
+const constants = require('./constants/constants.json');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 dotenv.config();

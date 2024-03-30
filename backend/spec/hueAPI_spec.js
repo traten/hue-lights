@@ -1,6 +1,6 @@
 describe('hueAPI', () => {
-  const HueApi = require('../../src/Backend/hueAPI.js');
-  const constants = require('../../src/constants/constants.json');
+  const HueApi = require('../src/hueAPI.js');
+  const constants = require('../src/constants/constants.json');
   const fetchMock = require('fetch-mock').sandbox();
   const IPAddress = '192.163.0.0';
   const UserId = '2';
