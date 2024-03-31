@@ -7,12 +7,12 @@ module.exports = function (fetch) {
   const app = express();
 
   app.get('/light/on', (req, res) => {
-    let status = hue.turnLightState(process.env.DeskLeft, constants.ON);
+    const status = hue.turnLightState(process.env.DeskLeft, constants.ON);
     res.status(200).send(status);
   });
 
   app.get('/light/off', (req, res) => {
-    let status = hue.turnLightState(process.env.DeskLeft, constants.OFF);
+    const status = hue.turnLightState(process.env.DeskLeft, constants.OFF);
     res.status(200).send(status);
   });
 
