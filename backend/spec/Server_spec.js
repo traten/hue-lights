@@ -1,10 +1,16 @@
 describe('server', () => {
   const Server = require('../src/Server.js');
   const request = require('supertest');
+  const HueApi = require('./mocks/hueAPI_mock.js');
+  const IPAddress = '192.163.0.0';
+  const UserId = '2';
+
   let server;
+  let hue;
 
   beforeEach((done) => {
-    server = Server(fetch).listen(done);
+    hue = HueApi(fetch, IPAddress, UserId);
+    server = Server(fetch, hue).listen(done);
   });
 
   afterEach((done) => {

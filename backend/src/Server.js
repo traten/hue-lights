@@ -1,9 +1,7 @@
 const express = require('express');
-const HueApi = require('./hueAPI.js');
 const constants = require('./constants/constants.json');
 
-module.exports = function (fetch) {
-  const hue = HueApi(fetch, process.env.IPAddress, process.env.UserId);
+module.exports = function (fetch, hue) {
   const app = express();
 
   app.get('/light/on', (req, res) => {
